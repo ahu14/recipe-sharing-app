@@ -9,10 +9,10 @@ const RecipeSchema = new mongoose.Schema({
         type: String,
         required: true 
     }],
-    description: {
+    steps: [{
         type: String,
         required: true,
-    },
+    }],
     like: [{
         type: Schema.Types.ObjectId.ObjectId,
         ref: 'User'
