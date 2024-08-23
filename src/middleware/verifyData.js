@@ -9,14 +9,16 @@ let verifyData = (req, res, next) => {
         let authorization = req.header('Authorization');
 
         if (!authorization){
-            res.render("home.ejs");
+            return next();
         }
 
-        jwt.verify(authorization, process.env.JWT_TOKEN, (err, user) => {
-            if (err) throw res.render("home.ejs");
-            req.user = user.user_id;
-            next();
-        })
+        else{
+            jwt.verify(authorization, process.env.JWT_TOKEN, (err, user) => {
+                if (err) throw res.json("error");
+                req.user_id = user.user_id;
+                return next();
+            })
+        }
     }
 }
 

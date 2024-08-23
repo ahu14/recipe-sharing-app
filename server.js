@@ -18,6 +18,7 @@ app.set("views", path.join(__dirname, '/src/views'));
 
 
 const homeRoute = require("./src/router/home_route");
+const commentRoute = require("./src/router/comment_route");
 const logoutRoute = require("./src/router/logout_route");
 const signInRoute = require("./src/router/sign_in_route");
 const signUpRoute = require("./src/router/sign_up_route");
@@ -28,6 +29,7 @@ app.all("/", homeRoute);
 app.all("/logout", logoutRoute);
 app.all("/sign-in", signInRoute);
 app.all("/sign-up", signUpRoute);
+app.all("/comment/:id", commentRoute);
 app.all("/add-recipe", addRecipeRoute);
 
 

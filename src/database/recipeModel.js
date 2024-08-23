@@ -1,24 +1,28 @@
-const mongoose = require("mongoose");
+const {mongoose, Schema} = require("mongoose");
 
 const RecipeSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
     },
-    ingredients: [{
+    /*image: {
+        type: Buffer,
+        required: true,
+    },*/
+    ingredients: {
         type: String,
         required: true 
-    }],
-    steps: [{
+    },
+    steps: {
         type: String,
         required: true,
-    }],
+    },
     like: [{
-        type: Schema.Types.ObjectId.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'User'
     }],
     dislike: [{
-        type: Schema.Types.ObjectId.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'User'
     }],
     comments: [{
@@ -28,6 +32,11 @@ const RecipeSchema = new mongoose.Schema({
     chef: {
         type: Schema.Types.ObjectId,
         ref: 'User',
+    },
+    date: {
+        type: Date, 
+        default: Date.now,
+        get: (date) => date.toLocaleString()
     }
 })
 
