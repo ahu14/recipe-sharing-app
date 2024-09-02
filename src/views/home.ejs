@@ -35,8 +35,20 @@
 
                         <div class="d-flex flex-row">
                             <div class="p-2"><%= dt.chef.username %></div>
-                            <div class="bg-success p-2">Like</div>
-                            <div class="bg-danger p-2">Dislike</div>
+                
+                            <% if (typeof(user) != "undefined"){ %>
+                                <% if (dt.like.length == 1){ %>
+                                    <div class="bg-success p-2" onclick="clicked(`<%= dt._id %>`, `<%= user._id %>`, 'like')">Unlike</div>
+                                <% } else { %>
+                                    <div class="bg-success p-2" onclick="clicked(`<%= dt._id %>`, `<%= user._id %>`, 'like')">Like</div>
+                                <% } %>
+
+                                <% if (dt.dislike.length == 1){ %>
+                                    <div class="bg-danger p-2" onclick="clicked(`<%= dt._id %>`, `<%= user._id %>`, 'dislike')">Undislike</div>
+                                <% } else { %>
+                                    <div class="bg-danger p-2" onclick="clicked(`<%= dt._id %>`, `<%= user._id %>`, 'dislike')">Dislike</div>
+                                <% } %>
+                            <% } %>
                             <a href="/comment/<%= dt.id %>">
                                 <div class="bg-light p-2">Comment</div>
                             </a>
@@ -46,4 +58,16 @@
             <% } %>
         </div>
     </body>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+
+        let clicked = async (recipe_id, user_id, type) => {
+            if (user_id != null){
+                await socket.emit("clicked", {recipe_id : recipe_id, user_id : user_id, type : type})
+                setTimeout(() => location.reload(), 1100)
+            }
+        }
+    </script>
 </html>

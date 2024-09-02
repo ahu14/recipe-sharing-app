@@ -4,8 +4,14 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser")
 const mongoose = require("mongoose");
+const {Server} = require("socket.io");
 const express = require("express");
+const http = require("http");
+
+
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
 
 
 app.use(cookieParser());
@@ -33,7 +39,16 @@ app.all("/comment/:id", commentRoute);
 app.all("/add-recipe", addRecipeRoute);
 
 
-app.listen(3000, () => {
+
+let socket_func = require("./src/middleware/socketIo");
+
+io.on("connection", (socket) => {
+    console.log("connected !");
+    socket.on("clicked", socket_func.clicked);
+})
+
+
+server.listen(3000, () => {
     mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log("server running at 3000"))
     .catch(err => console.log(err));
