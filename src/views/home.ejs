@@ -37,18 +37,28 @@
                             <div class="p-2"><%= dt.chef.username %></div>
                 
                             <% if (typeof(user) != "undefined"){ %>
-                                <% if (dt.like.length == 1){ %>
-                                    <div class="bg-success p-2" onclick="clicked(`<%= dt._id %>`, `<%= user._id %>`, 'like')">Unlike</div>
-                                <% } else { %>
-                                    <div class="bg-success p-2" onclick="clicked(`<%= dt._id %>`, `<%= user._id %>`, 'like')">Like</div>
-                                <% } %>
+                                <form id="hiddenForm" method="post">
+                                    <input type="hidden" id="recipe_id" name="recipe_id" value="<%= dt.id %>" />
+                                    <input type="hidden" id="user_id" name="user_id" value="<%= user._id %>" />
 
-                                <% if (dt.dislike.length == 1){ %>
-                                    <div class="bg-danger p-2" onclick="clicked(`<%= dt._id %>`, `<%= user._id %>`, 'dislike')">Undislike</div>
-                                <% } else { %>
-                                    <div class="bg-danger p-2" onclick="clicked(`<%= dt._id %>`, `<%= user._id %>`, 'dislike')">Dislike</div>
-                                <% } %>
+                                    <% if (dt.like.length == 1){ %>
+                                        <input type="submit" class="bg-success p-2" name="type" id="type" value="unlike"> 
+                                        <!--<div class="bg-success p-2" onclick="clicked(`<%= dt._id %>`, `<%= user._id %>`, 'like')">Unlike</div>-->
+                                    <% } else { %>
+                                        <input type="submit" class="bg-success p-2" name="type" id="type" value="like"> 
+                                        <!--<div class="bg-success p-2" onclick="clicked(`<%= dt._id %>`, `<%= user._id %>`, 'like')">Like</div>-->
+                                    <% } %>
+    
+                                    <% if (dt.dislike.length == 1){ %>
+                                        <input type="submit" class="bg-danger p-2" name="type" id="type" value="undislike"> 
+                                        <!--<div class="bg-danger p-2" onclick="clicked(`<%= dt._id %>`, `<%= user._id %>`, 'dislike')">Undislike</div>-->
+                                    <% } else { %>
+                                        <input type="submit" class="bg-danger p-2" name="type" id="type" value="dislike"> 
+                                        <!--<div class="bg-danger p-2" onclick="clicked(`<%= dt._id %>`, `<%= user._id %>`, 'dislike')">Dislike</div>-->
+                                    <% } %>  
+                                </form>
                             <% } %>
+                            
                             <a href="/comment/<%= dt.id %>">
                                 <div class="bg-light p-2">Comment</div>
                             </a>
@@ -59,15 +69,15 @@
         </div>
     </body>
 
-    <script src="/socket.io/socket.io.js"></script>
     <script>
-        var socket = io();
+        window.addEventListener('scroll',function() {
+            //When scroll change, you save it on localStorage.
+            localStorage.setItem('scrollPosition',window.scrollY);
+        },false);
 
-        let clicked = async (recipe_id, user_id, type) => {
-            if (user_id != null){
-                await socket.emit("clicked", {recipe_id : recipe_id, user_id : user_id, type : type})
-                setTimeout(() => location.reload(), 1100)
-            }
-        }
+        window.addEventListener('load',function() {
+            if(localStorage.getItem('scrollPosition') !== null)
+            window.scrollBy(0, localStorage.getItem('scrollPosition'));
+        },false);
     </script>
 </html>

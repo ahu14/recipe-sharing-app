@@ -5,5 +5,6 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", verifyData, findUser, controllers.home);
+router.post("/", verifyData, findUser, controllers.postHome);
 
 module.exports = router;
