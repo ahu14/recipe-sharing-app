@@ -23,6 +23,7 @@
             <% if (typeof(data) != "undefined"){ %>
                 <% data.forEach(dt => { %>
                     <div class="mt-3 pb-3">
+                        <img src="<%= dt.image.path %>" />
                         <h2><%= dt.title %></h2>
                         
                         <div class="pt-2 pb-2">
@@ -34,8 +35,10 @@
                         </div>
 
                         <div class="d-flex flex-row">
-                            <div class="p-2"><%= dt.chef.username %></div>
-                
+                            <% if (dt.chef){ %>
+                                <div class="p-2"><%= dt.chef.username %></div>
+                            <%  } %>
+
                             <% if (typeof(user) != "undefined"){ %>
                                 <form id="hiddenForm" method="post">
                                     <input type="hidden" id="recipe_id" name="recipe_id" value="<%= dt.id %>" />
@@ -43,18 +46,14 @@
 
                                     <% if (dt.like.length == 1){ %>
                                         <input type="submit" class="bg-success p-2" name="type" id="type" value="unlike"> 
-                                        <!--<div class="bg-success p-2" onclick="clicked(`<%= dt._id %>`, `<%= user._id %>`, 'like')">Unlike</div>-->
                                     <% } else { %>
                                         <input type="submit" class="bg-success p-2" name="type" id="type" value="like"> 
-                                        <!--<div class="bg-success p-2" onclick="clicked(`<%= dt._id %>`, `<%= user._id %>`, 'like')">Like</div>-->
                                     <% } %>
     
                                     <% if (dt.dislike.length == 1){ %>
                                         <input type="submit" class="bg-danger p-2" name="type" id="type" value="undislike"> 
-                                        <!--<div class="bg-danger p-2" onclick="clicked(`<%= dt._id %>`, `<%= user._id %>`, 'dislike')">Undislike</div>-->
                                     <% } else { %>
                                         <input type="submit" class="bg-danger p-2" name="type" id="type" value="dislike"> 
-                                        <!--<div class="bg-danger p-2" onclick="clicked(`<%= dt._id %>`, `<%= user._id %>`, 'dislike')">Dislike</div>-->
                                     <% } %>  
                                 </form>
                             <% } %>
@@ -63,9 +62,9 @@
                                 <div class="bg-light p-2">Comment</div>
                             </a>
                         </div>
-                    </div>
-                <% }) %>
-            <% } %>
+                    <% }) %>     
+                <% } %>
+            </div>
         </div>
     </body>
 

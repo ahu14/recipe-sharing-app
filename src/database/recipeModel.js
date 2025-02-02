@@ -5,10 +5,18 @@ const RecipeSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    /*image: {
-        type: Buffer,
-        required: true,
-    },*/
+    image: {
+        fieldname: String,
+        originalname: String,
+        encoding: String,
+        mimeptype: String,
+        destination: String,
+        filename: String,
+        path: String,
+        size: Number,
+        created_at: Date,
+        updated_at: Date
+    },
     ingredients: {
         type: String,
         required: true 

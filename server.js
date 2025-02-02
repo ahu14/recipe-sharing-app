@@ -4,14 +4,9 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser")
 const mongoose = require("mongoose");
-const {Server} = require("socket.io");
 const express = require("express");
 const http = require("http");
-
-
 const app = express();
-const server = http.createServer(app);
-const io = new Server(server);
 
 
 app.use(cookieParser());
@@ -19,8 +14,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, '/src/views'));
+
 
 
 const homeRoute = require("./src/router/home_route");
@@ -39,7 +38,7 @@ app.all("/comment/:id", commentRoute);
 app.all("/add-recipe", addRecipeRoute);
 
 
-server.listen(3000, () => {
+app.listen(3000, () => {
     mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log("server running at 3000"))
     .catch(err => console.log(err));
