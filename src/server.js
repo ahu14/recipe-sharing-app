@@ -17,16 +17,16 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, '/src/views'));
+app.set("views", path.join(__dirname, '/views'));
 
 
 
-const homeRoute = require("./src/router/home_route");
-const commentRoute = require("./src/router/comment_route");
-const logoutRoute = require("./src/router/logout_route");
-const signInRoute = require("./src/router/sign_in_route");
-const signUpRoute = require("./src/router/sign_up_route");
-const addRecipeRoute = require("./src/router/add_recipe_route");
+const homeRoute = require("./router/home_route");
+const commentRoute = require("./router/comment_route");
+const logoutRoute = require("./router/logout_route");
+const signInRoute = require("./router/sign_in_route");
+const signUpRoute = require("./router/sign_up_route");
+const addRecipeRoute = require("./router/add_recipe_route");
 
 
 app.all("/", homeRoute);

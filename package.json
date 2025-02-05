@@ -1,7 +1,7 @@
 {
   "name": "recipe-sharing-app",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "./src/server.js",
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
