@@ -1,6 +1,4 @@
 const Recipe = require("../database/recipeModel");
-const fs = require("fs");
-const path = require("path");
 const multer = require('multer');
 
 const storage = multer.diskStorage({
@@ -39,7 +37,7 @@ let post_add_recipe = async (req, res) => {
     })
 
     await data.save()
-    .then(dt => res.json("saved"))
+    .then(() => res.json("saved"))
     .catch(err => res.json(err));
 }
 

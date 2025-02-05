@@ -1,7 +1,6 @@
 const controllers = require("../controllers/add_recipe");
 const verifyData = require("../middleware/verifyData");
 const findUser = require("../middleware/findUser");
-const multer = require("multer");
 const express = require("express");
 const router = express.Router();
 
