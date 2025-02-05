@@ -37,8 +37,5 @@ app.all("/comment/:id", commentRoute);
 app.all("/add-recipe", addRecipeRoute);
 
 
-app.listen(3000, () => {
-    mongoose.connect(process.env.MONGODB_URI)
-    .then(() => console.log("server running at 3000"))
-    .catch(err => console.log(err));
-})
+mongoose.connect(process.env.MONGODB_URI).catch(err => console.log(err));
+app.listen(3000, () => console.log("running on 3000"));
