@@ -13,6 +13,14 @@ const RecipeSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    image: {
+        type: String,
+        required: true
+    },
+    cloudinary_id: {
+        type: String,
+        required: true
+    },
     like: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
